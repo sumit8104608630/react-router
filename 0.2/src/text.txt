@@ -1,0 +1,70 @@
+    text_change=(event)=>{
+        this.setState({
+            text:event.target.value
+        })
+    }
+    time_select=(event)=>{
+        this.setState({
+            Time:event.target.value
+        })
+    }
+ 
+    checked=(event)=>{
+        let Id=event.target.id
+        let new_task=this.state.task.map((item,i)=>{
+            if(i==Id){
+                item.complete=!item.complete
+            }
+            return item
+        })
+        this.setState({
+            task:new_task
+        })
+
+       let complete= this.state.task.filter((item)=>{
+            if(item.complete==true){
+              return item
+            }
+        })
+        this.setState({
+            complete_task:complete
+        })
+
+    }
+    add_text=()=>{
+        let obj={
+         id:this.state.id,
+         text:this.state.text,
+         complete:this.state.complete,
+         Time:this.state.Time,
+         delay:this.state.delay
+        }
+        this.setState((prevState)=>({
+             task:[...prevState.task,obj],
+             id:prevState.id+1,
+             text:"",
+             Time:"",
+        }),()=>{
+            console.log(this.state.task)
+            this.state.task.forEach((item,i)=>{
+                localStorage.setItem(i,JSON.stringify(item))
+            })
+        })
+         }
+       componentDidMount(){
+      let  new_arr=[]
+        for(let i=0;i<localStorage.length;i++){
+         new_arr.push(JSON.parse(localStorage.getItem(i)))
+        }
+        console.log(new_arr)
+      this.setState({
+        task:new_arr
+      })
+     
+       }
+         componentDidUpdate(){
+            this.state.task.forEach((item,i)=>{
+                localStorage.setItem(i,JSON.stringify(item))
+            })
+         }
+         
