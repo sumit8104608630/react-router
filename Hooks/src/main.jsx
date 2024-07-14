@@ -9,6 +9,11 @@ import ContextR from './ContextR.jsx'
 //import Fetch from './Fetch.jsx'
 import FetchR from './FetchR.jsx'
 import Counter from './Counter.jsx'
+import Memo from './Memo.jsx'
+import UseRef from './UseRef.jsx'
+import CustomHooks from './CustomHooks.jsx'
+import CustomHooks2 from './CustomHooks2.jsx'
+import Form from './Form.jsx'
 //import CallBack from './CallBack.jsx'
 //import Toggle from './Toggle.jsx'
 
@@ -20,6 +25,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 {/*<Fetch/>*/}
 <FetchR/>
 <Counter/>
+<Memo/>
+<UseRef/>
+<CustomHooks/>
+<CustomHooks2/>
+<Form/>
 
   </React.StrictMode>,
 )
