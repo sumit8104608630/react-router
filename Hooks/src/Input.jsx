@@ -14,4 +14,4 @@ const bind={
 return [value,bind,reset]
 }
 
-export default Input
+export default Input;

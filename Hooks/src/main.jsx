@@ -14,6 +14,7 @@ import UseRef from './UseRef.jsx'
 import CustomHooks from './CustomHooks.jsx'
 import CustomHooks2 from './CustomHooks2.jsx'
 import Form from './Form.jsx'
+import Parent from './Parent.jsx'
 //import CallBack from './CallBack.jsx'
 //import Toggle from './Toggle.jsx'
 
@@ -30,6 +31,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 <CustomHooks/>
 <CustomHooks2/>
 <Form/>
-
+<Parent/>
   </React.StrictMode>,
 )

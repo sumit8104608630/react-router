@@ -1,35 +1,63 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import  { Component } from 'react'
 
-function App() {
-  const [count, setCount] = useState(0)
+ class App extends Component {
+  constructor(props){
+    super(props)
+    this.state={
+     text:"",
+     edit:false,
+     delay:false,
+     id:0,
+     task:[],
+     time:"",
+     completeTask:[],
+     incompleteTask:[],
+     delayTask:[],
+    }
+  }
+  addTodo=(e)=>{
+   // e.preventDefault()
+    if(this.state.text==""){
+      alert("Please enter a task")
+      return
+    }
+    if(this.state.time==""){
+      alert("Please enter a time")
+      return
+    }
+    let obj={
+      id:this.state.id,
+      text:this.state.text,
+      time:this.state.time,
+      edit:this.state.edit,
+      delay:this.state.delay,
+    }
+    this.setState((prev)=>({task:[...prev.task,obj]}),()=>{ this.updateLocalStorage() })
+    
+  }
+  updateLocalStorage=()=>{
+   
+localStorage.setItem("task",JSON.stringify(this.state.task))
+    
+  }
+  componentDidMount(){
+    console.log(this.state.task)
+  }
 
-  return (
-    <>
+  render() {
+ //  console.log(this.state.task)
+    return (
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>Todo List</h1>
+      <section>
+        <input type='text' onChange={(e)=>this.setState({text:e.target.value.trim()})}/>
+        <input type='datetime-local' onChange={(e)=>this.setState({time:e.target.value})}/>
+        <button onClick={this.addTodo}>Add</button>
+      </section>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    )
+  }
 }
 
 export default App
+
