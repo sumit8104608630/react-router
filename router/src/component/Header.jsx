@@ -1,20 +1,40 @@
-import React from 'react'
+import React ,{useEffect, useState} from 'react'
 import "../App.css"
 import { Link,NavLink } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function Header() {
+    const [img,setUrl]=useState('')
+    const[name,setName]=useState('');
+    const [menu,setMenu]=useState(false)
+
+    useEffect(()=>{
+        fetch("https://api.github.com/users/sumit8104608630")
+        .then(res=>res.json())
+        .then((data)=>{
+          setName(data["login"])
+            setUrl(data["avatar_url"])
+        })
+    },[])
+    {console.log(menu)}
+    useEffect(()=>{
+        const btn=document.getElementsByClassName("icon");
+
+       // menu?btn.className.a
+    })
   return (
     <header className="shadow sticky z-50 top-0">
     <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
             <Link to="/" className="flex items-center">
                 <img
-                    src="https://alexharkness.com/wp-content/uploads/2020/06/logo-2.png"
-                    className="mr-3 h-12"
+                    src={img}
+                    className="mr-3 rounded-full h-12"
                     alt="Logo"
                 />
+                <span className="self-center text-xl font-semibold whitespace-nowrap">{name}</span>
             </Link>
-            <div className="flex items-center lg:order-2">
+            <div id='display-button' className="flex items-center lg:order-2">
                 <Link
                     to="#"
                     className="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
@@ -28,7 +48,10 @@ function Header() {
                     Get started
                 </Link>
             </div>
+            <button onClick={()=>setMenu(prev=>!prev)} className='icon'>{menu?<img className='w-7' src="https://icons.veryicon.com/png/o/miscellaneous/medium-thin-linear-icon/cross-23.png"/>:<img className='w-6'  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2ILAtFKZ-xpXJmV8Cr6cFtqRn4VR93ye9Pw&s"/>}</button>
+
             <div
+            
                 className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
                 id="mobile-menu-2"
             >
@@ -75,7 +98,66 @@ function Header() {
                     </li>
                 </ul>
             </div>
+           
         </div>
+<div id={menu ? "display-menu" : "display-none"} className='mt-5 text-start'>
+            <ul className="">
+                    <li>
+                        <NavLink
+                        to="/"
+                            className={({isActive}) =>
+                                `block py-2 ${isActive?"text-orange-700":"text-gray-700"} pr-4 pl-3 duration-200  border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                            }
+                        >
+                            Home
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                        to="about"
+                        className={({isActive}) =>
+                                `block py-2 pr-4 ${isActive?"text-orange-700":"text-gray-700"} pl-3 duration-200  border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                            }
+                        >
+                            About
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                        to="contact"
+                        className={({isActive}) =>
+                                `block py-2 pr-4 ${isActive?"text-orange-700":"text-gray-700"} pl-3 duration-200  border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                            }
+                        >
+                            Contact
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink
+                        to="github"
+                        className={({isActive}) =>
+                                `block py-2 pr-4 ${isActive?"text-orange-700":"text-gray-700"} pl-3 duration-200  border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                            }
+                        >
+                            Git Hub
+                        </NavLink>
+                    </li>
+                </ul>
+                <div className="flex flex-col text-center lg:order-2">
+                <Link
+                    to="#"
+                    className="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none mb-2"
+                >
+                    Log in
+                </Link>
+                <Link
+                    to="#"
+                    className="text-white bg-orange-700 hover:bg-orange-800 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+                >
+                    Get started
+                </Link>
+            </div>
+                </div>
     </nav>
 </header>
   )
